@@ -2,54 +2,37 @@
 
 import React from "react";
 import './TodoItem.css'
+import { useEffect} from "react";
 
-// const TodoItem = ({ items, handleDelete, strikeOut }) => {
-//   return (
-//     <ul>
-//       {items.map((item, idx) => (
-//         <li key={idx}>
-//           {item} <button onClick={() => handleDelete(item)}>x</button>
-//           <button onClick={() => strikeOut()}>done</button>
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// };
+const TodoItem = ({ items, setItems, handleDelete}) => {
 
-class TodoItem extends React.Component {
-  constructor({items,handleDelete}) {
-    super();
-    this.strikeOut = this.strikeOut.bind(this);
-  }
 
-  strikeOut(task) {
-    //console.log(task)
-    const newItems = this.props.items.map(item => {
+useEffect(()=>{
+    if(items.length > 0){
+        console.log('todo added')
+    }
+},[items])
+
+const strikeOut = (task) => {
+    const newItems = items.map(item => {
         if(item.todo === task.todo){
             item.isChecked = !item.isChecked
-            console.log('task',item)
         }
         return item
     })
-    this.setState({
-      items: newItems
-    });
-  }
-
-  render() {
-      const {strikeOut} = this
-      const {items, handleDelete} = this.props
-    return (
-      <ul>
-        {items.map((item, idx) => (
-          <li key={idx} className = {item.isChecked ? 'isChecked' : ''}>
-            {item.todo} <button onClick={() => handleDelete(item)}>x</button>
-            <button onClick={() => strikeOut(item)}>done</button>
-          </li>
-        ))}
-      </ul>
-    );
-  }
+    setItems(newItems)
 }
+  return (
+    <ul>
+      {items.map((item, idx) => (
+        <li key={idx} className = {item.isChecked ? 'isChecked' : ''}>
+          {item.todo} <button onClick={() => handleDelete(item)}>x</button>
+          <button onClick={() => strikeOut(item)}>{item.isChecked?'undo':'done'}</button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 
 export default TodoItem;

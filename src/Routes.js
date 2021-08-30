@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 
 import App from './App'
+import AppHooks from './AppHooks'
 import Test from './Test'
 
 function Routes() {
@@ -14,7 +15,8 @@ function Routes() {
           <Test/>
         </Route>
         <Route path="/">
-          <App />
+          {/* <App /> */}
+          <AppHooks/>
         </Route>
       </Switch>
     </div>
